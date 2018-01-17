@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<title>段子</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -20,19 +20,104 @@
 		</style>
 	</head>
 	<body>
-		<div class="mui-content">
-			<div class="title">
-				<p>这是webview模式选项卡的第1个子页面</p>
-				<p>何谓webview模式？其实就是每个选项卡内容都是一个独立的webview，彼此之间互相独立、互不影响；
-					对于较为复杂的业务系统，推荐使用该模式。</p>
-				<p>基于webview模式的选项卡，支持原生加速的下拉刷新，点击第二个选项卡（“消息”），切换选项卡，体验下拉刷新；</p>
-			</div>
+		<div id="refreshContainer">
+		
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 	<script>
+		var page = 1;
 		mui.init({
-			swipeBack:true //启用右滑关闭功能
+			swipeBack:true, //启用右滑关闭功能
+			pullRefresh : {
+			    container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    down : {
+			      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+			      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+			      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+			      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+			      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+			      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+			      callback :test //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			    },
+				up : {
+				  height:50,//可选.默认50.触发上拉加载拖动距离
+				  auto:true,//可选,默认false.自动上拉加载一次
+				  contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+				  contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+				  callback :test //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+		  	}
 		});
+		
+		function test(){
+			loadData();
+			mui('#refreshContainer').pullRefresh().endPulldown();
+			mui('#refreshContainer').pullRefresh().endPullupToRefresh(true|false);
+		}
+			
+		function loadData () {
+			const url = 'http://www.budejie.com/text/'+ page
+			mui.ajax(url,{
+				type:'get',//HTTP请求类型
+				dataType: 'jsonp',
+	            jsonpCallback:'callback',
+				success:function(html){
+					doData(html)
+				}
+			});
+		}
+		
+		function doData(html){
+			var el = document.createElement('div')
+			el.innerHTML = html;
+//			var NodeList = el.getElementsByClassName("j-r-list");
+			
+			
+			var NodeList = el.querySelectorAll(".j-r-list li")
+			
+			for (var i = 0; i < NodeList.length; i++) {
+				alert(NodeList[i].innerHTML)
+			}
+			
+			
+			
+//			$(".j-r-list").each(function () {  
+//		         //var tmp;  
+//		  		alert('1')
+////		         $(this).find('li').each(function() {  
+////		           //tmp = $(this).text();  
+////		            
+////		           key.push($(this).text());  
+////		         });  
+//		  
+//		      }); 
+			
+			
+		
+//			for (var i = 0; i < NodeList.length; i++) {
+//				var html = "<div class=\"mui-card\">"  +
+//				"<div class=\"mui-card-header mui-card-media\">" +
+//				"<img src=\""+ NodeList[i].getAttribute('data-original') +"\" />" +
+//				"<div class=\"mui-media-body\">小M" +
+//				"<p>发表于 2016-06-30 15:30</p>" +
+//				"</div>" +
+//				"<div class=\"mui-card-content\" >" +
+////				<p><p>
+//				"<img src=\"../images/yuantiao.jpg\" alt=\"\" width=\"100%\"/>" +
+//				"</div>" +
+////					<div class="mui-card-footer">
+////						<a class="mui-card-link">Like</a>
+////						<a class="mui-card-link">Comment</a>
+////						<a class="mui-card-link">Read more</a>
+////					</div>
+//				"</div>";
+//				mui('#refreshContainer')[0].insertAdjacentHTML('beforeend', html);
+//			}
+		}
+			
+		
 	</script>
 </html>
