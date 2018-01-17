@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.tabContet {
+				text-align: center;
+				font-size: 15px !important;
+			}
+			.mui-bar-tab .mui-tab-item .mui-icon {
+				width: 32px;
+				height: 32px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 id="title" class="mui-title">测试</h1>
+		</header>
+
+		<div id="slider" class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+						<p class="mui-slider-title">静静看这世界</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/shuijiao.jpg">
+						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/muwu.jpg">
+						<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/cbd.jpg">
+						<p class="mui-slider-title">Color of SIP CBD</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+						<p class="mui-slider-title">静静看这世界</p>
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../images/shuijiao.jpg">
+						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator mui-text-right">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active " href="tab-webview-subpage-about.html">
+				<span class="mui-icon "><img src="../images/book-red-32.png" /></span>
+				<span class="mui-tab-label tabContet">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<span class="mui-icon "><img src="../images/picture-32.png" /></span>
+				<span class="mui-tab-label tabContet">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-contact.html">
+				<span class="mui-icon "><img src="../images/movie-32.png" /></span>
+				<span class="mui-tab-label tabContet">测试</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="mui-icon "><img src="../images/bag-red-32.png" /></span>
+				<span class="mui-tab-label tabContet">测试</span>
+			</a>
+		</nav>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui("#slider").slider({
+				interval: 1000
+			});
+
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				mui.openWindow({
+					id: targetTab,
+					url: targetTab,
+					show: {
+						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+					},
+					waiting: {
+						autoShow: false, //自动显示等待框，默认为true
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>
