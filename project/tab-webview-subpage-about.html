@@ -28,7 +28,11 @@
 	</head>
 
 	<body>
-		<div id="refreshContainer"></div>
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				
+			</div>
+		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -37,7 +41,7 @@
 		var page = 1;
 		mui.plusReady(function() {})
 		mui.init({
-			swipeBack: true, //启用右滑关闭功能
+			swipeBack: false, //启用右滑关闭功能
 			pullRefresh: {
 				container: "#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
 				down: {
@@ -46,35 +50,41 @@
 					height: '50px', //可选,默认50px.下拉刷新控件的高度,
 					range: '100px', //可选 默认100px,控件可下拉拖拽的范围
 					offset: '10px', //可选 默认0px,下拉刷新控件的起始位置
-					auto: false, //可选,默认false.首次加载自动上拉刷新一次
-					callback: loadData('a') //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					auto: true, //可选,默认false.首次加载自动上拉刷新一次
+					callback: pulldownRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
 				},
 				up: {
-					height: 50, //可选.默认50.触发上拉加载拖动距离
+					height: 500, //可选.默认50.触发上拉加载拖动距离
 					auto: false, //可选,默认false.自动上拉加载一次
 					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
 					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
-					callback: loadData('b') //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					callback: pullupRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
 				}
 			}
 		});
 
-		function test() {
+		function pulldownRefresh() {
+			$(".mui-scroll").empty();
+			page = 1;
 			loadData();
 			mui('#refreshContainer').pullRefresh().endPulldown();
-			mui('#refreshContainer').pullRefresh().endPullupToRefresh(true | false);
+		}
+		
+		function pullupRefresh() {
+			page++;
+			loadData();
+			mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 		}
 
-		function loadData(params) {
-			alert(params)
-			const url = 'http://www.budejie.com/text/' + page
+		function loadData() {
+			const url = 'http://www.budejie.com/text/' + page;
 			mui.ajax(url, {
 				type: 'get', //HTTP请求类型
 				dataType: 'jsonp',
+				async: false,
 				jsonpCallback: 'callback',
 				success: function(html) {
 					doData(html);
-					writerFile('file:///sdcard/测试/','11tttt.txt', $(":root").html()); 
 				}
 			});
 		}
@@ -91,7 +101,7 @@
 						"<p>发表于 " + $(this).find('.u-time').html() + "</p>" +
 						"</div>" +
 						"<div class=\"mui-card-content\" ><br />" +
-						"<p>" + $(this).find('.j-r-list-c-desc a').html() + "<p>"
+						"<p>" + $(this).find('.j-r-list-c-desc a').html() + "<p>" +
 					//							"<img src=\"../images/yuantiao.jpg\" alt=\"\" width=\"100%\"/>" +
 					"</div>" +
 					//					<div class="mui-card-footer">
@@ -100,72 +110,35 @@
 					//						<a class="mui-card-link">Read more</a>
 					//					</div>
 					"</div>";
-					//							mui('#refreshContainer')[0].insertAdjacentHTML('beforeend', html);
-					$("#refreshContainer").append(html)
-					//writerFile('file:///sdcard/测试/','11tttt.txt', $(this).html());
+					$(".mui-scroll").append(html)
 				})
 			})
 
-			//			
-			//			writerFile('file:///sdcard/测试/','11tttt.txt', html);
-			//			$(".j-r-list").each(function() {
-			//				alert('1')
-			//			});
-
-			//			$(".j-r-list").each(function () {  
-			//		         //var tmp;  
-			//		  		alert('1')
-			////		         $(this).find('li').each(function() {  
-			////		           //tmp = $(this).text();  
-			////		            
-			////		           key.push($(this).text());  
-			////		         });  
-			//		  
-			//		      }); 
-
-			//			for (var i = 0; i < NodeList.length; i++) {
-			//				var html = "<div class=\"mui-card\">"  +
-			//				"<div class=\"mui-card-header mui-card-media\">" +
-			//				"<img src=\""+ NodeList[i].getAttribute('data-original') +"\" />" +
-			//				"<div class=\"mui-media-body\">小M" +
-			//				"<p>发表于 2016-06-30 15:30</p>" +
-			//				"</div>" +
-			//				"<div class=\"mui-card-content\" >" +
-			////				<p><p>
-			//				"<img src=\"../images/yuantiao.jpg\" alt=\"\" width=\"100%\"/>" +
-			//				"</div>" +
-			////					<div class="mui-card-footer">
-			////						<a class="mui-card-link">Like</a>
-			////						<a class="mui-card-link">Comment</a>
-			////						<a class="mui-card-link">Read more</a>
-			////					</div>
-			//				"</div>";
-			//				mui('#refreshContainer')[0].insertAdjacentHTML('beforeend', html);
-			//			}
+			
 		}
 
-		//		writerFile('file:///sdcard/测试/','11tttt.txt', html);
-
-		function writerFile(path, fileName, content) {
-			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
-				directoryEntry.getFile(fileName, {
-					create: true
-				}, function(fentry) {
-					fentry.createWriter(function(writer) {
-						writer.onerror = function() {
-							console.log("保存文件失败！");
-						}
-						writer.write(content);
-					}, function(e) {
-						console.log("创建写文件对象失败：" + e.message);
-					});
-				}, function(e) {
-					console.log("打开保存文件失败：" + e.message);
-				});
-			}, function(resolveLocalFileSystemURLError) {
-				console.log(JSON.stringify(resolveLocalFileSystemURLError))
-			});
-		}
+//		//writerFile('file:///sdcard/测试/','11tttt.txt', html);
+//
+//		function writerFile(path, fileName, content) {
+//			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
+//				directoryEntry.getFile(fileName, {
+//					create: true
+//				}, function(fentry) {
+//					fentry.createWriter(function(writer) {
+//						writer.onerror = function() {
+//							console.log("保存文件失败！");
+//						}
+//						writer.write(content);
+//					}, function(e) {
+//						console.log("创建写文件对象失败：" + e.message);
+//					});
+//				}, function(e) {
+//					console.log("打开保存文件失败：" + e.message);
+//				});
+//			}, function(resolveLocalFileSystemURLError) {
+//				console.log(JSON.stringify(resolveLocalFileSystemURLError))
+//			});
+//		}
 	</script>
 
 </html>
