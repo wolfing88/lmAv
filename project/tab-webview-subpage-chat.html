@@ -31,6 +31,25 @@
 				margin-left: 5px;
 			}
 			
+			#refreshContainer{
+				position: absolute;
+				top:0;
+				left:0;
+			}
+			
+			#sliderImg{
+				position: absolute;
+				z-index: 99999;
+				top:0;
+				left:0;
+				height: 100%;
+				width: 100%;
+				background:black;
+				opacity:1;
+			}
+			
+			
+			
 			
 		</style>
 	</head>
@@ -38,25 +57,76 @@
 	<body>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll" >
-			
-<div class="mui-card">
-	<div class="mui-card-header mui-card-media">
-					
-					<div class="mui-media-body">
-						997丶2少女の水着
-					</div>
-					<!--<img class="mui-pull-left" src="../images/logo.png" width="34px" height="34px" />
-					<h2>小M</h2>
-					<p>发表于 2016-06-30 15:30</p>-->
+				<div class="mui-card">
+					<div class="mui-card-header mui-card-media">
+									
+									<div class="mui-media-body">
+										997丶2少女の水着
+									</div>
+									<!--<img class="mui-pull-left" src="../images/logo.png" width="34px" height="34px" />
+									<h2>小M</h2>
+									<p>发表于 2016-06-30 15:30</p>-->
+								</div>
+				  <div class="mui-card-content">
+				    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" width="100%"></div>
+				  <div class="loadMoreDiv">
+				    <span class="loadMoreSpan">点击加载更多</span>
+				    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" height="20px" width="10%" style="float: right;"></div>
 				</div>
-  <div class="mui-card-content">
-    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" width="100%"></div>
-  <div class="loadMoreDiv">
-    <span class="loadMoreSpan">点击加载更多</span>
-    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" height="20px" width="10%" style="float: right;"></div>
-</div>
 			</div>
 		</div>
+		
+		<div id="sliderImg" >
+			<div id="slider" class="mui-slider" style="position: absolute;top: 50%;transform: translateY(-50%);">
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+						<p class="mui-slider-title">静静看这世界</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="http://gbres.dfcfw.com/Files/picture/20171027/43B63179044844DB0879076712368DBD.jpg" style="max-width:400px; width:expression(document.body.clientWidth>400?"400px":"auto"); overflow:hidden;">
+						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/muwu.jpg">
+						<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/cbd.jpg">
+						<p class="mui-slider-title">Color of SIP CBD</p>
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+						<p class="mui-slider-title">静静看这世界</p>
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../images/shuijiao.jpg">
+						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator mui-text-right">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		</div>
+		
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
