@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>段子</title>
+		<title>美图</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -35,19 +35,179 @@
 				position: absolute;
 				top:0;
 				left:0;
+				z-index: 10;
 			}
 			
-			#sliderImg{
-				position: absolute;
-				z-index: 99999;
-				top:0;
-				left:0;
-				height: 100%;
+			
+			.mui-card-header.mui-card-media{
+				height: 44px;
+			}
+			
+			.mui-card-header.mui-card-media .mui-media-body{
+				    margin-left: 5px;
+				    top: 50%;
+				    position: relative;
+				    transform: translateY(-50%);
+			}
+			
+			.mui-card-content img{
+				max-width: auto;
 				width: 100%;
-				background:black;
-				opacity:1;
 			}
 			
+			
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-img.mui-fullscreen {
+                position: fixed;
+                z-index: 20;
+                background-color: #000;
+            }
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
 			
 			
 			
@@ -56,82 +216,36 @@
 
 	<body>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll" >
-				<div class="mui-card">
-					<div class="mui-card-header mui-card-media">
-									
-									<div class="mui-media-body">
-										997丶2少女の水着
-									</div>
-									<!--<img class="mui-pull-left" src="../images/logo.png" width="34px" height="34px" />
-									<h2>小M</h2>
-									<p>发表于 2016-06-30 15:30</p>-->
-								</div>
-				  <div class="mui-card-content">
-				    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" width="100%"></div>
+			<div class="mui-scroll">
+				<div class="mui-card" >
+					<div class="mui-card-header mui-card-media">		
+						<div class="mui-media-body">
+							测试水电费了多少记录就
+						</div>
+					</div>
+					  <div class="mui-card-content">
+					    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyho8rvqj30j60srwgm.jpg" data-preview-group="1" >
+					  	<div style="display: none;">
+					  		  <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" data-preview-group="1" >
+				  		      <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhorb4vj30j60sr77h.jpg" data-preview-group="1" >
+				  		      <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhpabnvj30j60sr0vg.jpg" data-preview-group="1" >
+					  	</div>
+					  </div>
 				  <div class="loadMoreDiv">
-				    <span class="loadMoreSpan">点击加载更多</span>
-				    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" height="20px" width="10%" style="float: right;"></div>
+				    <span class="loadMoreSpan">点击上方图片进入图集</span>
+				    <img src="../images/bookmark_unexpand_icon.png" height="20px" width="10%" style="float: right;margin-right: 10px;"></div>
 				</div>
 			</div>
-		</div>
-		
-		<div id="sliderImg" >
-			<div id="slider" class="mui-slider" style="position: absolute;top: 50%;transform: translateY(-50%);">
-			<div class="mui-slider-group mui-slider-loop">
-				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-					<a href="#">
-						<img src="../images/yuantiao.jpg">
-						<p class="mui-slider-title">静静看这世界</p>
-					</a>
-				</div>
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="http://gbres.dfcfw.com/Files/picture/20171027/43B63179044844DB0879076712368DBD.jpg" style="max-width:400px; width:expression(document.body.clientWidth>400?"400px":"auto"); overflow:hidden;">
-						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
-					</a>
-				</div>
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/muwu.jpg">
-						<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
-					</a>
-				</div>
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/cbd.jpg">
-						<p class="mui-slider-title">Color of SIP CBD</p>
-					</a>
-				</div>
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/yuantiao.jpg">
-						<p class="mui-slider-title">静静看这世界</p>
-					</a>
-				</div>
-				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-					<a href="#">
-						<img src="../images/shuijiao.jpg">
-						<p class="mui-slider-title">幸福就是可以一起睡觉</p>
-					</a>
-				</div>
-			</div>
-			<div class="mui-slider-indicator mui-text-right">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-			</div>
-		</div>
 		</div>
 		
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../js/mui.zoom.js"></script>
+	<script src="../js/mui.previewimage.js"></script>
 
 	<script>
+		
 		var page = 1;
 		mui.plusReady(function() {})
 		mui.init({
@@ -162,7 +276,7 @@
 			page = 1;
 			//loadData();
 			//console.log($(":root").html())
-			mui('#refreshContainer').pullRefresh().endPulldown();
+			mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
 		}
 
 		function pullupRefresh() {
@@ -201,32 +315,15 @@
 					'</div>';
 				$(".mui-scroll").append(html);
 			}
-
-			//			var el = document.createElement('div')
-			//			el.innerHTML = html;
-			//			$(el).find(".j-r-list").children('ul').each(function() {
-			//				$(this).children('li').each(function() {
-			//					var html = "<div class=\"mui-card\">" +
-			//						"<div class=\"mui-card-header mui-card-media\">" +
-			//						"<img src=\"" + $(this).find('.u-logo').attr('data-original') + "\" />" +
-			//						"<div class=\"mui-media-body\">" + $(this).find('.u-user-name').html() +
-			//						"<p>发表于 " + $(this).find('.u-time').html() + "</p>" +
-			//						"</div>" +
-			//						"<div class=\"mui-card-content\" ><br />" +
-			//						"<p>" + $(this).find('.j-r-list-c-desc a').html() + "<p>" +
-			//					//							"<img src=\"../images/yuantiao.jpg\" alt=\"\" width=\"100%\"/>" +
-			//					"</div>" +
-			//					//					<div class="mui-card-footer">
-			//					//						<a class="mui-card-link">Like</a>
-			//					//						<a class="mui-card-link">Comment</a>
-			//					//						<a class="mui-card-link">Read more</a>
-			//					//					</div>
-			//					"</div>";
-			//					$(".mui-scroll").append(html)
-			//				})
-			//			})
-
 		}
+		
+		
+		mui.previewImage(function(index){
+			mui("#refreshContainer").pullRefresh().setStopped(false);
+		},function(index){
+			mui("#refreshContainer").pullRefresh().setStopped(true);
+		});
+		
 
 		//		//writerFile('file:///sdcard/测试/','11tttt.txt', html);
 		//
