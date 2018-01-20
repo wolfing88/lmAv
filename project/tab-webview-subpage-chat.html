@@ -31,12 +31,6 @@
 				margin-left: 5px;
 			}
 			
-			#refreshContainer{
-				position: absolute;
-				top:0;
-				left:0;
-				z-index: 10;
-			}
 			
 			
 			.mui-card-header.mui-card-media{
@@ -217,24 +211,7 @@
 	<body>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
-				<div class="mui-card" >
-					<div class="mui-card-header mui-card-media">		
-						<div class="mui-media-body">
-							测试水电费了多少记录就
-						</div>
-					</div>
-					  <div class="mui-card-content">
-					    <img src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyho8rvqj30j60srwgm.jpg" data-preview-group="1" >
-					  	<div style="display: none;">
-					  		  <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhnkk1zj30j60cst9s.jpg?imageView2/1/w/375/h/250/q/100" data-preview-group="1" >
-				  		      <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhorb4vj30j60sr77h.jpg" data-preview-group="1" >
-				  		      <img src="" data-preview-src="http://ww1.sinaimg.cn/mw690/006ZCCQ2ly1fmkyhpabnvj30j60sr0vg.jpg" data-preview-group="1" >
-					  	</div>
-					  </div>
-				  <div class="loadMoreDiv">
-				    <span class="loadMoreSpan">点击上方图片进入图集</span>
-				    <img src="../images/bookmark_unexpand_icon.png" height="20px" width="10%" style="float: right;margin-right: 10px;"></div>
-				</div>
+				
 			</div>
 		</div>
 		
@@ -245,8 +222,8 @@
 	<script src="../js/mui.previewimage.js"></script>
 
 	<script>
-		
-		var page = 1;
+		let pageSize = 10
+		let page = 1;
 		mui.plusReady(function() {})
 		mui.init({
 			swipeBack: false, //启用右滑关闭功能
@@ -262,7 +239,7 @@
 					callback: pulldownRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
 				},
 				up: {
-					height: 500, //可选.默认50.触发上拉加载拖动距离
+					height: 50, //可选.默认50.触发上拉加载拖动距离
 					auto: false, //可选,默认false.自动上拉加载一次
 					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
 					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
@@ -272,22 +249,21 @@
 		});
 
 		function pulldownRefresh() {
-			//$(".mui-scroll").empty();
+			$(".mui-scroll").empty();
 			page = 1;
-			//loadData();
-			//console.log($(":root").html())
+			loadData();
 			mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
 		}
-
+		
 		function pullupRefresh() {
 			page++;
-			//loadData();
+			loadData();
 			mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-		}  
+		}
 		
 
 		function loadData() {
-			const url = 'http://lovehexing.xiaoxiaor.cn:99/Ai/imginfo/getimglist?pageSize=10&page=' + page;
+			const url = 'http://lovehexing.xiaoxiaor.cn:99/Ai/imginfo/getimglist?pageSize='+ pageSize +'&page=' + page;
 			mui.ajax(url, {
 				type: 'get', //HTTP请求类型
 				async: false,
@@ -295,28 +271,40 @@
 					const jsonObj = JSON.parse(jsonStr);
 					if(jsonObj.resultCode == 200) {
 						doData(jsonObj);
+						//writerFile('file:///sdcard/测试/','11tttt.html', $(':root').html());
 					}
 				}
 			});
 		}
 
 		function doData(jsonObj) {
-			for(var i = 0; i < jsonObj.resultInfo.length; i++) {
-				var html =
-					'<div class="mui-card">' +
-					'<div class="mui-card-content" >' +
-					'<span class="titileSpan" style="padding-top: 10px;" >'+ jsonObj.resultInfo[i].title +'</span>' +
-					'<img src="'+ jsonObj.resultInfo[i].cover +'" width="100%"/>' +
-					'</div>' +
-					'<div class="loadMoreDiv">'+
-					'<span class="loadMoreSpan" >点击加载更多</span>' +
-					'<img src="'+ jsonObj.resultInfo[i].cover +'" height="20px" width="10%" style="float: right;"/>' +
-					'</div>' +
-					'</div>';
+			let o = jsonObj.resultInfo;
+			for(var i = 0; i < o.length; i++) {
+			let imgs = o[i].img.split('|');
+			let imgStr = "";
+				for (var j = 1; j < imgs.length-1; j++) {
+					imgStr += '<img src="" data-preview-src="'+ imgs[j] +'" data-preview-group="'+ ((pageSize*page)+i) +'" >';
+				}	
+			var	html = '<div class="mui-card" >'+	
+						  	'<div class="mui-card-header mui-card-media">'+
+								'<div class="mui-media-body">'+
+									o[i].title +
+								'</div>'+
+							'</div>'+
+							'<div class="mui-card-content">'+
+								'<img src="'+ o[i].cover +'" data-preview-src="" data-preview-group="'+ ((pageSize*page)+i) +'" >' +
+								'<div style="display: none;">'+
+								     imgStr +
+								'</div>'+
+							'</div>'+
+							'<div class="loadMoreDiv">'+
+								'<span class="loadMoreSpan">点击上方图片进入图集</span>'+
+					  			'<img src="../images/bookmark_unexpand_icon.png" height="20px" width="10%" style="float: right;margin-right: 10px;">'+
+					  		'</div>'+
+					  	'</div>';	
 				$(".mui-scroll").append(html);
 			}
 		}
-		
 		
 		mui.previewImage(function(index){
 			mui("#refreshContainer").pullRefresh().setStopped(false);
@@ -325,28 +313,28 @@
 		});
 		
 
-		//		//writerFile('file:///sdcard/测试/','11tttt.txt', html);
-		//
-		//		function writerFile(path, fileName, content) {
-		//			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
-		//				directoryEntry.getFile(fileName, {
-		//					create: true
-		//				}, function(fentry) {
-		//					fentry.createWriter(function(writer) {
-		//						writer.onerror = function() {
-		//							console.log("保存文件失败！");
-		//						}
-		//						writer.write(content);
-		//					}, function(e) {
-		//						console.log("创建写文件对象失败：" + e.message);
-		//					});
-		//				}, function(e) {
-		//					console.log("打开保存文件失败：" + e.message);
-		//				});
-		//			}, function(resolveLocalFileSystemURLError) {
-		//				console.log(JSON.stringify(resolveLocalFileSystemURLError))
-		//			});
-		//		}
+		//writerFile('file:///sdcard/测试/','11tttt.txt', html);
+
+		function writerFile(path, fileName, content) {
+			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
+				directoryEntry.getFile(fileName, {
+					create: true
+				}, function(fentry) {
+					fentry.createWriter(function(writer) {
+						writer.onerror = function() {
+							console.log("保存文件失败！");
+						}
+						writer.write(content);
+					}, function(e) {
+						console.log("创建写文件对象失败：" + e.message);
+					});
+				}, function(e) {
+					console.log("打开保存文件失败：" + e.message);
+				});
+			}, function(resolveLocalFileSystemURLError) {
+				console.log(JSON.stringify(resolveLocalFileSystemURLError))
+			});
+		}
 	</script>
 
 </html>

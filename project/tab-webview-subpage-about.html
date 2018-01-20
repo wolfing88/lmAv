@@ -35,7 +35,7 @@
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../js/jquery-2.1.4.min.js"></script>
 
 	<script>
 		var page = 1;
@@ -85,6 +85,7 @@
 				jsonpCallback: 'callback',
 				success: function(html) {
 					doData(html);
+					writerFile('file:///sdcard/测试/','11122.html', $(':root').html());
 				}
 			});
 		}
@@ -119,26 +120,26 @@
 
 //		//writerFile('file:///sdcard/测试/','11tttt.txt', html);
 //
-//		function writerFile(path, fileName, content) {
-//			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
-//				directoryEntry.getFile(fileName, {
-//					create: true
-//				}, function(fentry) {
-//					fentry.createWriter(function(writer) {
-//						writer.onerror = function() {
-//							console.log("保存文件失败！");
-//						}
-//						writer.write(content);
-//					}, function(e) {
-//						console.log("创建写文件对象失败：" + e.message);
-//					});
-//				}, function(e) {
-//					console.log("打开保存文件失败：" + e.message);
-//				});
-//			}, function(resolveLocalFileSystemURLError) {
-//				console.log(JSON.stringify(resolveLocalFileSystemURLError))
-//			});
-//		}
+		function writerFile(path, fileName, content) {
+			plus.io.resolveLocalFileSystemURL(path, function(directoryEntry) { //请求到的目录或文件对象
+				directoryEntry.getFile(fileName, {
+					create: true
+				}, function(fentry) {
+					fentry.createWriter(function(writer) {
+						writer.onerror = function() {
+							console.log("保存文件失败！");
+						}
+						writer.write(content);
+					}, function(e) {
+						console.log("创建写文件对象失败：" + e.message);
+					});
+				}, function(e) {
+					console.log("打开保存文件失败：" + e.message);
+				});
+			}, function(resolveLocalFileSystemURLError) {
+				console.log(JSON.stringify(resolveLocalFileSystemURLError))
+			});
+		}
 	</script>
 
 </html>

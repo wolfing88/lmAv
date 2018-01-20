@@ -209,6 +209,15 @@
 					"project/tab-webview-subpage-contact.html"
 				],
 				"priority": 0
+			},
+			"project/tab-webview-subpage-contact.html": {
+				"resources": [
+					"project/shipinContent.html"
+				],
+				"refer": [
+					"project/offcanvas-drag-right-plus-menu.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
