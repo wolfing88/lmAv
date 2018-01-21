@@ -64,16 +64,20 @@
 		});
 
 		function pulldownRefresh() {
-			$(".mui-scroll").empty();
-			page = 1;
-			loadData();
-			mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+			setTimeout(function() {
+				$(".mui-scroll").empty();
+				page = 1;
+				loadData();
+				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+			}, 1000);
 		}
 		
 		function pullupRefresh() {
-			page++;
-			loadData();
-			mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+			setTimeout(function() {
+				page++;
+				loadData();
+				mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+			}, 1000);
 		}
 
 		function loadData() {

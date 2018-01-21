@@ -7,20 +7,93 @@
 		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="import" href="../comon/comon.html" id="page1">
 
-		<link rel="stylesheet" href="../css/mui.min.css">
 		<style>
-		
+			.mui-table-view .mui-media-object {
+				line-height: 42px;
+				max-width: 90px;
+				height: auto;
+				width: 80px;
+			}
 		</style>
 	</head>
+
 	<body>
 		<div class="mui-content">
-			
+			<ul class="mui-table-view"></ul>
 		</div>
-		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			
+			let url = 'http://www.qyl077.com/categories/';
+			let self;
+
+			mui.plusReady(function() {
+				self = plus.webview.currentWebview();
+				mui.ajax(url, {
+					type: 'get', //HTTP请求类型
+					async: false,
+					success: function(html) {
+						doData(html);
+					}
+				});
+			})
+
+			function doData(html) {
+				var el = document.createElement('div')
+				el.innerHTML = html;
+				var reg = new RegExp(" ", "g"); //g,表示全部替换。
+				let dataMap = new Map()
+				let total = 0
+				$(el).find(".nav-stacked").children('li').each(function() {
+					if($(this).find('a').html().indexOf('<span') == -1) {
+						dataMap.set($(this).find('a').html(), '');
+					} else {
+						let temp = $(this).find('a').html()
+						temp = temp.replace(reg, "");
+						let title = temp.substring(0, temp.indexOf('<span'));
+						let count = temp.substring(temp.indexOf('right">') + 7, temp.length - 7);
+						dataMap.set(title, count);
+						if(!isNaN(count)) {
+							total += Number(count);
+						}
+					}
+				})
+
+				var html = '<li class="mui-table-view-cell mui-media">' +
+					'<a href="javascript:;">' +
+					'<img class="mui-media-object mui-pull-left" src="http://www.qyl077.com/media/videos/tmb/000/046/846/12.jpg">' +
+					'<div class="mui-media-body">' +
+					'全部视频' +
+					'<p class="mui-ellipsis">共' + total + '个视频</p>' +
+					'</div>' +
+					'</a>' +
+					'</li>';
+				$(el).find(".categories").children('li').each(function() {
+					html += '<li class="mui-table-view-cell mui-media">' +
+						'<a href="javascript:loadConent(\''+$(this).find('.thumbnail').attr('href')+'\');">' +
+						'<img class="mui-media-object mui-pull-left" src="http://www.qyl077.com/' + $(this).find('img').attr('src') + '">' +
+						'<div class="mui-media-body">' +
+						$(this).find('.category-title').html() +
+						'<p class="mui-ellipsis">共' + dataMap.get($(this).find('.category-title').html()) + '个视频</p>' +
+						'</div>' +
+						'</a>' +
+						'</li>';
+				})
+				$(".mui-table-view").append(html);
+			}
+
+			function loadConent(loadType) {
+				mui.fire(self.opener(), "reload",{'loadType':loadType});
+				close();
+			}
+
+			/**
+			 * 关闭侧滑菜单
+			 */
+			function close() {
+				mui.fire(self.opener(), "menu:close");
+			}
 		</script>
-</body>
+	</body>
 
 </html>

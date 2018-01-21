@@ -215,7 +215,8 @@
 					"project/shipinContent.html"
 				],
 				"refer": [
-					"project/offcanvas-drag-right-plus-menu.html"
+					"project/offcanvas-drag-right-plus-menu.html",
+					"project/player.html"
 				],
 				"priority": 0
 			}

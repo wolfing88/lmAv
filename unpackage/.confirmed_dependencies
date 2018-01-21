@@ -22,7 +22,8 @@
 		],
 		"refer": [
 			"project/shipinContent.html",
-			"project/offcanvas-drag-right-plus-menu.html"
+			"project/offcanvas-drag-right-plus-menu.html",
+			"project/player.html"
 		]
 	}
 }

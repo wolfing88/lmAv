@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>段子</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="import" href="../comon/comon.html">
+		<script type="text/javascript" src="../js/ckplayer/ckplayer.js"></script>
+
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.video{
+				width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="video" ></div>
+	</body>
+
+	<script>
+		let urlTemp,videoUrl,title,pic,player;
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			urlTemp = self.urlTemp;
+			title = self.title;
+			pic  = self.pic;
+			loadData();
+		})
+
+		mui.init({
+			swipeBack: false, //启用右滑关闭功能
+		});
+
+		function loadData() {
+			const url = 'http://www.qyl077.com' + urlTemp;
+			mui.ajax(url, {
+				type: 'get', //HTTP请求类型
+				dataType: 'jsonp',
+				async: false,
+				jsonpCallback: 'callback',
+				success: function(html) {
+					doData(html);
+				}
+			});
+		}
+		
+		function doData(html){
+			var el = document.createElement('div')
+			el.innerHTML = html;
+			pic = $(el).find("#player").attr('poster');
+			videoUrl = $(el).find("#player source:first").attr('src');
+			playVideo();
+		}
+		
+		
+		function playVideo() {
+			var videoObject = {
+				container: '.video', //“#”代表容器的ID，“.”或“”代表容器的class
+				variable: 'player', //该属性必需设置，值等于下面的new chplayer()的对象
+				//				flashplayer:true,//如果强制使用flashplayer则设置成true
+				poster: pic,
+				autoplay: true, //自动播放
+				video: [
+					[videoUrl, 'video/mp4', '高清', 0],
+				] //视频地址
+			};
+			player = new ckplayer(videoObject);
+		}
+	</script>
+
+</html>

@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="import" href="../comon/comon.html">
 		<style>
 			html,
 			body {
@@ -216,10 +216,7 @@
 		</div>
 		
 	</body>
-	<script src="../js/mui.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="../js/mui.zoom.js"></script>
-	<script src="../js/mui.previewimage.js"></script>
+	
 
 	<script>
 		let pageSize = 10
@@ -249,16 +246,20 @@
 		});
 
 		function pulldownRefresh() {
-			$(".mui-scroll").empty();
-			page = 1;
-			loadData();
-			mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+			setTimeout(function() {
+				$(".mui-scroll").empty();
+				page = 1;
+				loadData();
+				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+			}, 1000);
 		}
 		
 		function pullupRefresh() {
-			page++;
-			loadData();
-			mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+			setTimeout(function() {
+				page++;
+				loadData();
+				mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+			}, 1000);
 		}
 		
 
@@ -306,10 +307,15 @@
 			}
 		}
 		
+		
+
+		
 		mui.previewImage(function(index){
 			mui("#refreshContainer").pullRefresh().setStopped(false);
+			mui('#refreshContainer').pullRefresh().disablePullupToRefresh();//禁用上拉加载
 		},function(index){
 			mui("#refreshContainer").pullRefresh().setStopped(true);
+			mui('#refreshContainer').pullRefresh().enablePullupToRefresh();//启用上拉加载
 		});
 		
 
