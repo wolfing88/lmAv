@@ -1,29 +1,37 @@
 {
-	"index.html": {
-		"refer": [
-			"project/test.html"
-		],
-		"resources": []
-	},
-	"project/tab-webview-main.html": {
-		"resources": [
-			"project/tab-webview-subpage-about.html"
-		],
-		"refer": [
-			"project/tab-webview-subpage-setting.html",
-			"project/tab-webview-subpage-about.html",
-			"project/tab-webview-subpage-chat.html",
-			"project/tab-webview-subpage-contact.html"
-		]
-	},
-	"project/tab-webview-subpage-contact.html": {
-		"resources": [
-			"project/shipinContent.html"
-		],
-		"refer": [
-			"project/shipinContent.html",
-			"project/offcanvas-drag-right-plus-menu.html",
-			"project/player.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "project/test.html"
+    ],
+    "resources": []
+  },
+  "project/tab-webview-main.html": {
+    "resources": [
+      "project/tab-webview-subpage-about.html"
+    ],
+    "refer": [
+      "project/tab-webview-subpage-setting.html",
+      "project/tab-webview-subpage-about.html",
+      "project/tab-webview-subpage-chat.html",
+      "project/tab-webview-subpage-contact.html"
+    ]
+  },
+  "project/tab-webview-subpage-contact.html": {
+    "resources": [
+      "project/shipinContent.html"
+    ],
+    "refer": [
+      "project/shipinContent.html",
+      "project/offcanvas-drag-right-plus-menu.html",
+      "project/player.html"
+    ]
+  },
+  "project/main.html": {
+    "refer": [
+      "project/duanzi.html",
+      "project/meitu.html",
+      "project/gengduo.html"
+    ],
+    "resources": []
+  }
 }

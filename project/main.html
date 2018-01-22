@@ -80,19 +80,19 @@
 		</div>
 
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active " href="tab-webview-subpage-about.html">
+			<a class="mui-tab-item mui-active " href="duanzi.html">
 				<span class="mui-icon "><img src="../images/book-red-32.png" /></span>
 				<span class="mui-tab-label tabContet">段子</span>
 			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+			<a class="mui-tab-item" href="meitu.html">
 				<span class="mui-icon "><img src="../images/picture-32.png" /></span>
 				<span class="mui-tab-label tabContet">美图</span>
 			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-contact.html">
+			<a class="mui-tab-item" href="yingshi.html">
 				<span class="mui-icon "><img src="../images/movie-32.png" /></span>
 				<span class="mui-tab-label tabContet">影视</span>
 			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-setting.html">
+			<a class="mui-tab-item" href="gengduo.html">
 				<span class="mui-icon "><img src="../images/bag-red-32.png" /></span>
 				<span class="mui-tab-label tabContet">更多</span>
 			</a>
@@ -105,6 +105,10 @@
 
 			mui('.mui-bar-tab').on('tap', 'a', function(e) {
 				var targetTab = this.getAttribute('href');
+				if(targetTab=='yingshi.html'){
+					mui.toast('请邀请');
+					return;
+				}
 				mui.openWindow({
 					id: targetTab,
 					url: targetTab,

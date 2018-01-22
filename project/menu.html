@@ -26,6 +26,13 @@
 		<script type="text/javascript" charset="utf-8">
 			let url = 'http://www.qyl077.com/categories/';
 			let self;
+			
+			mui.init({
+				swipeBack: false,
+				keyEventBind: {
+					backbutton: false //关闭back按键监听
+				}
+			});
 
 			mui.plusReady(function() {
 				self = plus.webview.currentWebview();
